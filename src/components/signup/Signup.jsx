@@ -1,8 +1,13 @@
 import { useRef, useState } from "react";
 import "./signup.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, selectUser } from "../../features/userSlice";
+import { auth } from "../../firebase";
+
 const Signup = () => {
   const username = useRef();
+  const photoURL = useRef();
   const email = useRef();
   const password = useRef();
   const passwordAgain = useRef();
@@ -10,10 +15,41 @@ const Signup = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [passwordAgainError, setPasswordAgainError] = useState("");
+  const [serverError, setServerError] = useState("");
 
-  const signupHandler = async (e) => {
+  const dispatch = useDispatch();
+
+  const user = useSelector(selectUser);
+
+  const signupHandler = (e) => {
     e.preventDefault();
-    console.log("signup handler run");
+
+    auth
+      .createUserWithEmailAndPassword(
+        email.current.value,
+        password.current.value
+      )
+      .then((userAuth) => {
+        userAuth.user
+          .updateProfile({
+            displayName: username.current.value,
+            photoURL: photoURL.current.value,
+          })
+          .then(() => {
+            dispatch(
+              loginUser({
+                email: userAuth.user.email,
+                uid: userAuth.user.uid,
+                photoURL: photoURL.current.value,
+                displayName: username.current.value,
+              })
+            );
+          });
+      })
+      .catch((err) => {
+        setServerError(err.message);
+        console.log(err.message);
+      });
   };
 
   const usernameValidator = () => {
@@ -56,69 +92,82 @@ const Signup = () => {
 
   return (
     <>
-      <div className="signup">
-        <div className="signupWrapper">
-          <div className="signupLeft">
-            <h3 className="signupLogo">RacketChat</h3>
-            <span className="signupDesc">Connect with your friends</span>
-          </div>
-          <div className="signupRight">
-            <form className="signupBox" onSubmit={signupHandler}>
-              <input
-                placeholder="Username"
-                type="text"
-                pattern="[a-zA-Z0-9]{2,}$"
-                maxLength="15"
-                required
-                className="signupInput"
-                ref={username}
-                onBlur={usernameValidator}
-              ></input>
-              <div className="signupInputError">{usernameError}</div>
-              <input
-                placeholder="Email"
-                type="email"
-                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                maxLength="50"
-                required
-                ref={email}
-                className="signupInput"
-                onBlur={emailValidator}
-              ></input>
-              <div className="signupInputError">{emailError}</div>
-              <input
-                placeholder="Password"
-                type="password"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                maxLength="20"
-                required
-                className="signupInput"
-                ref={password}
-                onBlur={passwordValidator}
-              ></input>
-              <div className="signupInputError">{passwordError}</div>
-              <input
-                placeholder="Password Again"
-                type="password"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                maxLength="20"
-                required
-                className="signupInput"
-                ref={passwordAgain}
-                onBlur={passwordAgainValidator}
-              ></input>
-              <div className="signupInputError">{passwordAgainError}</div>
-              <button className="signupButton" type="submit">
-                "Signup"
-              </button>
-              <span className="signupForgot">Forget Password?</span>
-              <button className="signupLoginButton">
-                <Link to="/login"> Login into Account</Link>
-              </button>
-            </form>
+      {user ? (
+        <Navigate to="/" replace />
+      ) : (
+        <div className="signup">
+          <div className="signupWrapper">
+            <div className="signupLeft">
+              <h3 className="signupLogo">RacketChat</h3>
+              <span className="signupDesc">Connect with your friends</span>
+            </div>
+            <div className="signupRight">
+              <form className="signupBox" onSubmit={signupHandler}>
+                <input
+                  placeholder="Username"
+                  type="text"
+                  pattern="[a-zA-Z0-9]{2,}$"
+                  maxLength="15"
+                  required
+                  className="signupInput"
+                  ref={username}
+                  onBlur={usernameValidator}
+                ></input>
+                <div className="signupInputError">{usernameError}</div>
+                <input
+                  placeholder="AvatarUrl (optional)"
+                  type="text"
+                  className="signupInput"
+                  ref={photoURL}
+                ></input>
+                <input
+                  placeholder="Email"
+                  type="email"
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                  maxLength="50"
+                  required
+                  ref={email}
+                  className="signupInput"
+                  onBlur={emailValidator}
+                ></input>
+                <div className="signupInputError">{emailError}</div>
+                <input
+                  placeholder="Password"
+                  type="password"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  maxLength="20"
+                  required
+                  className="signupInput"
+                  ref={password}
+                  onBlur={passwordValidator}
+                ></input>
+                <div className="signupInputError">{passwordError}</div>
+                <input
+                  placeholder="Password Again"
+                  type="password"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                  maxLength="20"
+                  required
+                  className="signupInput"
+                  ref={passwordAgain}
+                  onBlur={passwordAgainValidator}
+                ></input>
+                <div className="signupInputError">{passwordAgainError}</div>
+                <button className="signupButton" type="submit">
+                  "Signup"
+                </button>
+                {serverError && (
+                  <div className="signupInputError">{serverError}</div>
+                )}
+                <span className="signupForgot">Forget Password?</span>
+                <button className="signupLoginButton">
+                  <Link to="/login"> Login into Account</Link>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
