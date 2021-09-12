@@ -19,3 +19,38 @@ body {
   margin: 0;
   padding: 0;
 }
+
+a {
+  text-decoration: none;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+.primary-color {
+  color: var(--primary-color);
+}
+.primary-color:visited {
+  color: var(--primary-color);
+}
+.secondary-color {
+  color: var(--secondary-color);
+}
+
+.text-color-green {
+  color: var(--success-color);
+}
+.text-color-red {
+  color: var(--error-color);
+}
+
+.button-primary:hover {
+  background-color: #2468d8;
+  color: var(--light-color);
+}
+.button-secondary:hover {
+  background-color: #f9fafb;
+  color: var(--primary-color);
+}

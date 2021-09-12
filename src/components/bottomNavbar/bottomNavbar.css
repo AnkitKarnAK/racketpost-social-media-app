@@ -1,0 +1,31 @@
+.footer-nav {
+  display: flex;
+  justify-content: space-evenly;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  padding: 1rem 1rem 0rem 1rem;
+  background-color: var(--light-color);
+  border-top: 1px solid #fafafa;
+}
+
+.footer--item {
+  padding: 0 1rem;
+  text-align: center;
+}
+.footer--item > p {
+  margin: 0;
+  padding-bottom: 0.2rem;
+}
+.footer--item > svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .footer-nav {
+    display: none;
+  }
+}
