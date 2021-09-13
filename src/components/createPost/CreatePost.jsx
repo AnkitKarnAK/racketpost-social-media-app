@@ -4,15 +4,78 @@ import { Link } from "react-router-dom";
 import { selectUser } from "../../features/userSlice";
 import "./createPost.css";
 import { RiImageAddFill } from "react-icons/ri";
+import { TiDelete } from "react-icons/ti";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import generateId from "../../utils/generateId";
+import { db, storage } from "../../firebase";
+import firebase from "firebase";
 
 const CreatePost = () => {
   const user = useSelector(selectUser);
 
   const [caption, setCaption] = useState("");
+  const [image, setImage] = useState(null);
+  const [progress, setProgress] = useState(90);
 
-  const inputFileHandler = (e) => {};
+  const inputFileHandler = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+      var selectedImageSrc = URL.createObjectURL(e.target.files[0]);
+      var imagePreview = document.getElementById("image-1-preview");
+      var imagePreviewClose = document.getElementById("imagePreviewClose");
+      imagePreview.src = selectedImageSrc;
+      imagePreview.style.display = "block";
+      imagePreviewClose.style.display = "block";
+    }
+  };
+
   const imageUploadHandler = (e) => {
-    console.log("image uplader run");
+    if (image) {
+      var imageName = generateId();
+      const uploadTask = storage.ref(`images/${imageName}.jpg`).put(image);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          var progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(progress);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(`${imageName}.jpg`)
+            .getDownloadURL()
+            .then((imageUrl) => {
+              db.collection("posts").add({
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                caption: caption,
+                imageUrl: imageUrl,
+                username: user.displayName,
+                profileUrl: user.photoURL,
+              });
+            });
+          setProgress(0);
+          setCaption("");
+          setImage(null);
+          var imagePreview = document.getElementById("image-1-preview");
+          var imagePreviewClose = document.getElementById("imagePreviewClose");
+          imagePreview.style.display = "none";
+          imagePreviewClose.style.display = "none";
+        }
+      );
+    }
+  };
+
+  const removeImage = () => {
+    var imagePreview = document.getElementById("image-1-preview");
+    var imagePreviewClose = document.getElementById("imagePreviewClose");
+    imagePreview.style.display = "none";
+    imagePreviewClose.style.display = "none";
   };
 
   return (
@@ -28,6 +91,23 @@ const CreatePost = () => {
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
             ></textarea>
+            <div className="imagePreview">
+              <img id="image-1-preview" alt="uploaded" />
+              <div onClick={() => removeImage()} id="imagePreviewClose">
+                <TiDelete />
+              </div>
+
+              {progress === 0 ? (
+                <></>
+              ) : (
+                <CircularProgress
+                  className="circularProgress"
+                  variant="determinate"
+                  value={progress}
+                  thickness={5}
+                />
+              )}
+            </div>
           </div>
           <div className="createPost_bottom">
             <div className="createPost_imageUpload">
@@ -50,7 +130,9 @@ const CreatePost = () => {
               disabled={!caption.trim().length}
               onClick={imageUploadHandler}
             >
-              Upload
+              {progress === 0
+                ? "Post"
+                : `${progress === 100 ? "Posted" : "posting.."}`}
             </button>
           </div>
         </div>

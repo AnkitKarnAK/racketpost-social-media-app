@@ -57,3 +57,41 @@
   display: flex;
   justify-content: space-between;
 }
+
+.imagePreview {
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: max-content;
+}
+
+#imagePreviewClose {
+  display: none;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 3;
+  color: red;
+  cursor: pointer;
+}
+#imagePreviewClose svg {
+  width: 100%;
+  transform: scale(2);
+}
+
+.circularProgress {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+
+#image-1-preview {
+  display: none;
+  max-height: 3.75rem;
+  position: relative;
+  border-radius: 5px;
+}
