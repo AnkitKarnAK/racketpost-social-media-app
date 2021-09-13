@@ -10,6 +10,7 @@ import { auth } from "./firebase";
 import Home from "./components/home/Home";
 import Profile from "./components/profile/Profile";
 import { Navbar } from "./components/navbar/Navbar";
+import Error404 from "./components/error404/Error404";
 
 function App() {
   // const user = useSelector(selectUser);
@@ -41,6 +42,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </div>
   );

@@ -5,6 +5,8 @@ import "./profile.css";
 import { useSelector } from "react-redux";
 import { logoutUser, selectUser } from "../../features/userSlice";
 import { useDispatch } from "react-redux";
+import { Sidebar } from "../sidebar/Sidebar";
+import { BottomNavbar } from "../bottomNavbar/BottomNavbar";
 
 const Profile = () => {
   const user = useSelector(selectUser);
@@ -20,29 +22,33 @@ const Profile = () => {
   return (
     <>
       {user ? (
-        <div className="profile-container">
-          <h1>Profile page</h1>
-          <div className="profile-user-info">
-            <img
-              className="avatar"
-              src={user?.photoURL ? user.photoURL : profilePicIcon}
-              alt="Profile"
-            />{" "}
-            <span className="profile-user-name">{user?.displayName}</span>
+        <>
+          <Sidebar />
+          <BottomNavbar />
+          <div className="profile-container">
+            <h1>Profile page</h1>
+            <div className="profile-user-info">
+              <img
+                className="avatar"
+                src={user?.photoURL ? user.photoURL : profilePicIcon}
+                alt="Profile"
+              />{" "}
+              <span className="profile-user-name">{user?.displayName}</span>
+            </div>
+            <div className="profile-user-email">{user?.email}</div>
+            <div className="profile-links">
+              <Link to="/">Home</Link>
+            </div>
+            <div className="profile-logout-container">
+              <button
+                onClick={logoutHandler}
+                className="button-primary profile-logout-button"
+              >
+                Logout
+              </button>
+            </div>
           </div>
-          <div className="profile-user-email">{user?.email}</div>
-          <div className="profile-links">
-            <Link to="/">Home</Link>
-          </div>
-          <div className="profile-logout-container">
-            <button
-              onClick={logoutHandler}
-              className="button-primary profile-logout-button"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
+        </>
       ) : (
         <Navigate to="/login" replace />
       )}
