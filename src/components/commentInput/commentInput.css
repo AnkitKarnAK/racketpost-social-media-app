@@ -2,6 +2,11 @@
   display: flex;
   justify-content: space-between;
 }
+.commentInputForm {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 .commentInput_textarea {
   border: none;
   width: 100%;

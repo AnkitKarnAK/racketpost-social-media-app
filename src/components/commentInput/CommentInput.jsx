@@ -10,7 +10,8 @@ const CommentInput = ({ id, comments }) => {
 
   const user = useSelector(selectUser);
 
-  const addComment = () => {
+  const addComment = (e) => {
+    e.preventDefault();
     if (comment.trim() !== "") {
       commentsArray.push({
         comment: comment,
@@ -34,16 +35,18 @@ const CommentInput = ({ id, comments }) => {
 
   return (
     <div className="commentInput">
-      <textarea
-        placeholder="Add a comment..."
-        className="commentInput_textarea"
-        rows="1"
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-      ></textarea>
-      <button onClick={addComment} className="commentInput_button">
-        Post
-      </button>
+      <form className="commentInputForm" onSubmit={addComment}>
+        <input
+          placeholder="Add a comment..."
+          className="commentInput_textarea"
+          rows="1"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        ></input>
+        <button type="submit" className="commentInput_button">
+          Post
+        </button>
+      </form>
     </div>
   );
 };
