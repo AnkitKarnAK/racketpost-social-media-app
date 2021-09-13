@@ -12,6 +12,7 @@
 
 body {
   font-family: "Noto Sans JP", sans-serif;
+  background-color: var(--light-color);
 }
 
 * {
@@ -22,6 +23,9 @@ body {
 
 a {
   text-decoration: none;
+}
+button > a {
+  color: inherit;
 }
 
 html,
@@ -44,6 +48,12 @@ body {
 }
 .text-color-red {
   color: var(--error-color);
+}
+
+.button-primary {
+  font-size: 1rem;
+  border-radius: 3px;
+  height: 2rem;
 }
 
 .button-primary:hover {
