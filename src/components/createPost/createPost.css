@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
 }
 .createPost_wrapper {
   width: 100%;
@@ -94,4 +93,10 @@
   max-height: 3.75rem;
   position: relative;
   border-radius: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .createPost {
+    margin-top: 1rem;
+  }
 }

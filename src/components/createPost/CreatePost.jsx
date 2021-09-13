@@ -15,7 +15,7 @@ const CreatePost = () => {
 
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState(null);
-  const [progress, setProgress] = useState(90);
+  const [progress, setProgress] = useState(0);
 
   const inputFileHandler = (e) => {
     if (e.target.files[0]) {
