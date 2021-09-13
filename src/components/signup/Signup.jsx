@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import "./signup.css";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, selectUser } from "../../features/userSlice";
 import { auth } from "../../firebase";
@@ -20,6 +20,7 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(selectUser);
+  const navigate = useNavigate();
 
   const signupHandler = (e) => {
     e.preventDefault();
@@ -44,6 +45,7 @@ const Signup = () => {
                 displayName: username.current.value,
               })
             );
+            navigate("/");
           });
       })
       .catch((err) => {
@@ -98,7 +100,7 @@ const Signup = () => {
         <div className="signup">
           <div className="signupWrapper">
             <div className="signupLeft">
-              <h3 className="signupLogo">RacketChat</h3>
+              <h3 className="signupLogo">RacketPost</h3>
               <span className="signupDesc">Connect with your friends</span>
             </div>
             <div className="signupRight">
@@ -154,7 +156,7 @@ const Signup = () => {
                 ></input>
                 <div className="signupInputError">{passwordAgainError}</div>
                 <button className="signupButton" type="submit">
-                  "Signup"
+                  Signup
                 </button>
                 {serverError && (
                   <div className="signupInputError">{serverError}</div>

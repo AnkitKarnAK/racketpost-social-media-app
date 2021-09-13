@@ -68,7 +68,7 @@ const Login = () => {
         <div className="login">
           <div className="loginWrapper">
             <div className="loginLeft">
-              <h3 className="loginLogo">RacketChat</h3>
+              <h3 className="loginLogo">RacketPost</h3>
               <span className="loginDesc">Connect with your friends</span>
             </div>
             <div className="loginRight">
@@ -96,7 +96,7 @@ const Login = () => {
                 ></input>
                 <div className="loginInputError">{passwordError}</div>
                 <button className="loginButton" type="submit">
-                  "Login"
+                  Login
                 </button>
                 {serverError && (
                   <div className="loginInputError">{serverError}</div>

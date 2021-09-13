@@ -40,7 +40,7 @@ export const Navbar = () => {
                     // activeClassName="nav-link-active"
                   >
                     <img
-                      src={profileIcon}
+                      src={user?.photoURL ? user.photoURL : profileIcon}
                       alt="Profile"
                       className="nav-icons"
                     />

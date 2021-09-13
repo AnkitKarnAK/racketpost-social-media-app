@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FaHome, FaUserAlt } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { MdChat } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
 import "./bottomNavbar.css";
@@ -26,7 +26,7 @@ export const BottomNavbar = () => {
         // activeClassName="primary-color"
       >
         <div className="footer--item">
-          <FaUserAlt />
+          <HiUsers />
           <p>
             <small>Users</small>
           </p>
@@ -45,19 +45,6 @@ export const BottomNavbar = () => {
           </p>
         </div>
       </a>
-
-      <NavLink
-        to="/profile"
-        className="secondary-color"
-        // activeClassName="primary-color"
-      >
-        <div className="footer--item">
-          <HiUsers />
-          <p>
-            <small>Profile</small>
-          </p>
-        </div>
-      </NavLink>
     </footer>
   );
 };

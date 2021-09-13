@@ -8,9 +8,8 @@ import { useDispatch } from "react-redux";
 import { loginUser, logoutUser } from "./features/userSlice";
 import { auth } from "./firebase";
 import Home from "./components/home/Home";
+import Profile from "./components/profile/Profile";
 import { Navbar } from "./components/navbar/Navbar";
-import { Sidebar } from "./components/sidebar/Sidebar";
-import { BottomNavbar } from "./components/bottomNavbar/BottomNavbar";
 
 function App() {
   // const user = useSelector(selectUser);
@@ -36,12 +35,12 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Sidebar />
-      <BottomNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );

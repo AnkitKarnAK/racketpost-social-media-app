@@ -1,10 +1,11 @@
 .signup {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: calc(100vh - 6.25rem);
   background-color: #f0f2f5;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: -0.5rem;
 }
 
 .signupWrapper {

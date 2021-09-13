@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FaHome, FaThumbsUp, FaUserAlt } from "react-icons/fa";
+import { FaHome, FaThumbsUp } from "react-icons/fa";
 import { MdChat } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
 
@@ -51,16 +51,6 @@ export const Sidebar = () => {
             <span className="link-name">RacketChat</span>
           </li>
         </a>
-        <NavLink
-          to="/profile"
-          className="secondary-color"
-          //   activeClassName="primary-color"
-        >
-          <li>
-            <FaUserAlt />
-            <span className="link-name">Profile</span>
-          </li>
-        </NavLink>
       </ul>
     </div>
   );
