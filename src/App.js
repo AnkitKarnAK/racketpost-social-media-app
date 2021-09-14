@@ -11,6 +11,7 @@ import Home from "./components/home/Home";
 import Profile from "./components/profile/Profile";
 import { Navbar } from "./components/navbar/Navbar";
 import Error404 from "./components/error404/Error404";
+import Users from "./components/users/Users";
 
 function App() {
   // const user = useSelector(selectUser);
@@ -38,6 +39,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signup" element={<Signup />} />
