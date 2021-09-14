@@ -1,0 +1,34 @@
+.commentInput {
+  display: flex;
+  justify-content: space-between;
+}
+.commentInputForm {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.commentInput_textarea {
+  border: none;
+  width: 100%;
+  outline: none;
+  resize: none;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.commentInput_textarea:focus {
+  border-bottom: 1px solid var(--primary-color);
+}
+.commentInput_textarea:focus ~ .commentInput_button {
+  color: var(--primary-color);
+}
+
+.commentInput_button {
+  background-color: transparent;
+  color: gray;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}

@@ -1,0 +1,120 @@
+.nav {
+  padding: 1rem 0;
+  border: 0.13rem solid var(--primary-color);
+  /* border-top-color: transparent; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-left-radius: 1rem;
+  width: 100vw;
+  max-width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 0.5rem 0.5rem -0.5rem #bfd5fb;
+
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--light-color);
+  z-index: 1;
+  margin-bottom: 0.5rem;
+}
+.nav > .nav-header {
+  padding-left: 0.5rem;
+}
+
+.nav > .nav-header span {
+  font-size: 2.5rem;
+  font-weight: 550;
+}
+.nav > .nav-header > .nav-header-secondary {
+  color: var(--dark-color);
+}
+
+.nav > .nav-header > .nav-header-secondary:hover {
+  color: var(--primary-color);
+}
+.nav > .nav-header > .nav-header-primary {
+  color: var(--primary-color);
+}
+
+.nav > .nav-links {
+  display: flex;
+  /* margin-top: 0.6rem; */
+  margin-right: 0.5rem;
+}
+.nav .display-toggle {
+  display: none;
+}
+.nav .display-toggle-mobile {
+  display: block;
+}
+
+.nav > .nav-links button {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 0.2rem;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  vertical-align: super;
+  flex-shrink: 1;
+}
+.nav > .nav-links button a {
+  color: var(--dark-color);
+}
+
+.nav > .nav-links .button-badge-container:hover a {
+  color: var(--primary-color);
+  transition: ease-out 0.3s;
+}
+
+.nav-icon-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-icons {
+  width: 1.8rem;
+  height: 1.8rem;
+  object-fit: contain;
+  margin: 0 0.5rem 0 auto;
+}
+
+.nav-link-active {
+  color: var(--primary-color) !important;
+}
+
+button.button-disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+}
+
+.button-badge-container {
+  position: relative;
+}
+
+.button-badge-container > .icon-badge {
+  position: absolute;
+  top: -0.65rem;
+  right: 0rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .nav .display-toggle {
+    display: block;
+  }
+  .nav .display-toggle-mobile {
+    display: none;
+  }
+}

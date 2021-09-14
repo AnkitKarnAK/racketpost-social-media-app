@@ -1,56 +1,76 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import Login from "./components/login/Login";
+import Signup from "./components/signup/Signup";
+
+import { useDispatch } from "react-redux";
+import { loginUser, logoutUser } from "./features/userSlice";
+import { auth, db } from "./firebase";
+import Home from "./components/home/Home";
+import Profile from "./components/profile/Profile";
+import { Navbar } from "./components/navbar/Navbar";
+import Error404 from "./components/error404/Error404";
+import Users from "./components/users/Users";
+import UserPosts from "./components/userPosts/UserPosts";
+import { addPosts } from "./features/postsSlice";
 
 function App() {
+  // const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        dispatch(
+          loginUser({
+            userId: authUser.uid,
+            username: authUser.displayName,
+            email: authUser.email,
+            profileUrl: authUser.photoURL,
+          })
+        );
+      } else {
+        dispatch(logoutUser());
+      }
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        dispatch(
+          addPosts(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              post: {
+                caption: doc.data().caption,
+                username: doc.data().username,
+                userId: doc.data().userId,
+                imageUrl: doc.data().imageUrl,
+                profileUrl: doc.data().profileUrl,
+                comments: doc.data().comments,
+              },
+            }))
+          )
+        );
+      });
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/users/:userId/" element={<UserPosts />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<Error404 />} />
+      </Routes>
     </div>
   );
 }
