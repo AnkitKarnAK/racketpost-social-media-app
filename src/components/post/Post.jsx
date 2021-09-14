@@ -45,7 +45,7 @@ const Post = ({ post, id }) => {
 
           <p className="postUsername">{post.username}</p>
         </div>
-        {user && user.displayName === post.username && (
+        {user && user.userId === post.userId && (
           <button onClick={deletePost} className="postDelete">
             Delete
           </button>

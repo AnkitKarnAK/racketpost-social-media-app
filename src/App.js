@@ -21,10 +21,10 @@ function App() {
       if (authUser) {
         dispatch(
           loginUser({
-            uid: authUser.uid,
-            displayName: authUser.displayName,
+            userId: authUser.uid,
+            username: authUser.displayName,
             email: authUser.email,
-            photoURL: authUser.photoURL,
+            profileUrl: authUser.photoURL,
           })
         );
       } else {

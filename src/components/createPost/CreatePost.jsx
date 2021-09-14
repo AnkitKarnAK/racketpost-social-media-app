@@ -55,8 +55,9 @@ const CreatePost = () => {
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                 caption: caption,
                 imageUrl: imageUrl,
-                username: user.displayName,
-                profileUrl: user.photoURL,
+                username: user.username,
+                userId: user.userId,
+                profileUrl: user.profileUrl,
               });
             });
           setProgress(0);

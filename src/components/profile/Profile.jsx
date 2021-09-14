@@ -30,10 +30,10 @@ const Profile = () => {
             <div className="profile-user-info">
               <img
                 className="avatar"
-                src={user?.photoURL ? user.photoURL : profilePicIcon}
-                alt="Profile"
-              />{" "}
-              <span className="profile-user-name">{user?.displayName}</span>
+                src={user?.profileUrl ? user.profileUrl : profilePicIcon}
+                alt="avatar"
+              />
+              <span className="profile-user-name">{user?.username}</span>
             </div>
             <div className="profile-user-email">{user?.email}</div>
             <div className="profile-links">

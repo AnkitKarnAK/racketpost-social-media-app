@@ -45,10 +45,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-weight: 600;
 }
 
 .button-tertiary.disabled {
-  color: var(--secondary-color);
+  color: gray;
   cursor: not-allowed;
 }
 

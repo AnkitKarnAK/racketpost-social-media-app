@@ -3,7 +3,8 @@ import "./signup.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, selectUser } from "../../features/userSlice";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
+import firebase from "firebase";
 
 const Signup = () => {
   const username = useRef();
@@ -34,15 +35,25 @@ const Signup = () => {
         userAuth.user
           .updateProfile({
             displayName: username.current.value,
-            photoURL: photoURL.current.value,
+            photoURL: photoURL.current?.value,
           })
           .then(() => {
+            db.collection("users").add({
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+              email: userAuth.user.email,
+              profileUrl:
+                userAuth.user.photoURL ||
+                "https://img.favpng.com/17/1/20/user-interface-design-computer-icons-default-png-favpng-A0tt8aVzdqP30RjwFGhjNABpm.jpg",
+              username: userAuth.user.displayName,
+              userId: userAuth.user.uid,
+            });
+
             dispatch(
               loginUser({
                 email: userAuth.user.email,
-                uid: userAuth.user.uid,
-                photoURL: photoURL.current.value,
-                displayName: username.current.value,
+                userId: userAuth.user.uid,
+                profileURL: userAuth.user.photoURL,
+                username: userAuth.user.displayName,
               })
             );
             navigate("/");

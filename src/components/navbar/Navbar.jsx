@@ -40,11 +40,11 @@ export const Navbar = () => {
                     // activeClassName="nav-link-active"
                   >
                     <img
-                      src={user?.photoURL ? user.photoURL : profileIcon}
+                      src={user?.profileUrl ? user.profileUrl : profileIcon}
                       alt="Profile"
                       className="nav-icons"
                     />
-                    Profile
+                    {user?.username ? user.username : "Profile"}
                   </NavLink>
                 </button>
               </div>

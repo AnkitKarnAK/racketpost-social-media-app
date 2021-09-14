@@ -15,7 +15,7 @@ const CommentInput = ({ id, comments }) => {
     if (comment.trim() !== "") {
       commentsArray.push({
         comment: comment,
-        username: user.displayName,
+        username: user.username,
       });
 
       db.collection("posts")
@@ -44,7 +44,7 @@ const CommentInput = ({ id, comments }) => {
           onChange={(e) => setComment(e.target.value)}
         ></input>
         <button type="submit" className="commentInput_button">
-          Post
+          Send
         </button>
       </form>
     </div>

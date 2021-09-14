@@ -22,13 +22,13 @@ const Login = () => {
     e.preventDefault();
     auth
       .signInWithEmailAndPassword(email.current.value, password.current.value)
-      .then(({ user }) => {
+      .then(({ user: authUser }) => {
         dispatch(
           loginUser({
-            email: user.email,
-            uid: user.uid,
-            photoURL: user.photoURL,
-            displayName: user.displayName,
+            email: authUser.email,
+            userId: authUser.uid,
+            profileUrl: authUser.photoURL,
+            username: authUser.displayName,
           })
         );
       })
