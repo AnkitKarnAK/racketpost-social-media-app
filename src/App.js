@@ -50,6 +50,7 @@ function App() {
                 userId: doc.data().userId,
                 imageUrl: doc.data().imageUrl,
                 profileUrl: doc.data().profileUrl,
+                comments: doc.data().comments,
               },
             }))
           )

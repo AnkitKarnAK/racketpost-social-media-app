@@ -6,11 +6,11 @@ import "./commentInput.css";
 
 const CommentInput = ({ id, comments }) => {
   const [comment, setComment] = useState("");
-  const commentsArray = comments ? comments : [];
 
   const user = useSelector(selectUser);
 
   const addComment = (e) => {
+    let commentsArray = comments ? [...comments] : [];
     e.preventDefault();
     if (comment.trim() !== "") {
       commentsArray.push({
