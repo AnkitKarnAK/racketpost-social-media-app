@@ -1,6 +1,19 @@
+import { useNavigate } from "react-router";
+
 const User = ({ dbUser }) => {
+  const gotoUserPosts = (dbUser) => {
+    navigate(`/users/${dbUser.userId}`);
+  };
+
+  const navigate = useNavigate();
+
   return (
-    <div className="user">
+    <div
+      onClick={() => {
+        gotoUserPosts(dbUser);
+      }}
+      className="user"
+    >
       <div className="userHeader">
         <div className="userHeaderLeft">
           <img

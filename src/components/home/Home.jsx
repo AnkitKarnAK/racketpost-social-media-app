@@ -9,6 +9,7 @@ import Feed from "../feed/Feed";
 
 const Home = () => {
   // const user = useSelector(selectUser);
+
   return (
     <div>
       <Sidebar />

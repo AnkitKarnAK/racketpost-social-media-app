@@ -1,11 +1,16 @@
 import { NavLink } from "react-router-dom";
-import { FaHome, FaThumbsUp } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { MdChat } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
+import { RiFileUserLine } from "react-icons/ri";
 
 import "./sidebar.css";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 
 export const Sidebar = () => {
+  const user = useSelector(selectUser);
+
   return (
     <div className="sidebar-nav">
       <ul className="links-container">
@@ -31,13 +36,13 @@ export const Sidebar = () => {
           </li>
         </NavLink>
         <NavLink
-          to="/liked"
+          to={`/users/${user.userId}`}
           className="secondary-color"
           //   activeClassName="primary-color"
         >
           <li>
-            <FaThumbsUp />
-            <span className="link-name">Liked</span>
+            <RiFileUserLine />
+            <span className="link-name">My Posts</span>
           </li>
         </NavLink>
         <a

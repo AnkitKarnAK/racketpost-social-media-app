@@ -38,6 +38,7 @@ const Profile = () => {
             <div className="profile-user-email">{user?.email}</div>
             <div className="profile-links">
               <Link to="/">Home</Link>
+              <Link to={`/users/${user.userId}`}>My Posts</Link>
             </div>
             <div className="profile-logout-container">
               <button

@@ -1,20 +1,10 @@
 import Post from "../post/Post";
 import "./feed.css";
-import { useState, useEffect } from "react";
-import { db } from "../../firebase";
+import { useSelector } from "react-redux";
+import { selectPosts } from "../../features/postsSlice";
 
 const Feed = () => {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    db.collection("posts")
-      .orderBy("timestamp", "desc")
-      .onSnapshot((snapshot) => {
-        setPosts(
-          snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() }))
-        );
-      });
-  }, []);
+  const posts = useSelector(selectPosts);
 
   return (
     <div className="feed">
