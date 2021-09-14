@@ -36,7 +36,7 @@ export const Sidebar = () => {
           </li>
         </NavLink>
         <NavLink
-          to={`/users/${user.userId}`}
+          to={`/users/${user?.userId}`}
           className="secondary-color"
           //   activeClassName="primary-color"
         >
