@@ -38,6 +38,26 @@ const Login = () => {
       });
   };
 
+  const guestLoginHandler = async (e) => {
+    e.preventDefault();
+    auth
+      .signInWithEmailAndPassword("admin@gmail.com", "Admin123")
+      .then(({ user: authUser }) => {
+        dispatch(
+          loginUser({
+            email: authUser.email,
+            userId: authUser.uid,
+            profileUrl: authUser.photoURL,
+            username: authUser.displayName,
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        setServerError(err.message);
+      });
+  };
+
   const emailValidator = () => {
     if (
       /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
@@ -97,6 +117,9 @@ const Login = () => {
                 <div className="loginInputError">{passwordError}</div>
                 <button className="loginButton" type="submit">
                   Login
+                </button>
+                <button className="loginButton" onClick={guestLoginHandler}>
+                  Guest Login
                 </button>
                 {serverError && (
                   <div className="loginInputError">{serverError}</div>
