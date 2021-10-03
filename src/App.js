@@ -51,6 +51,7 @@ function App() {
                 imageUrl: doc.data().imageUrl,
                 profileUrl: doc.data().profileUrl,
                 comments: doc.data().comments,
+                likes: doc.data().likes,
               },
             }))
           )

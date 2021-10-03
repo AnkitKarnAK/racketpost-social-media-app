@@ -1,0 +1,9 @@
+.likeIcon {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.likeCount {
+  font-size: 1rem;
+  padding-left: 0.2rem;
+}

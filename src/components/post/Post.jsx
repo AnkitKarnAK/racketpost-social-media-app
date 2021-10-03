@@ -5,6 +5,7 @@ import { db, storage } from "../../firebase";
 import CommentInput from "../commentInput/CommentInput";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
+import Like from "../like/Like";
 
 const Post = ({ post, id }) => {
   const user = useSelector(selectUser);
@@ -56,6 +57,7 @@ const Post = ({ post, id }) => {
       </div>
       <div className="postBottom">
         <div className="postCaption">
+          <Like id={id} likes={post.likes} />
           <strong>{post.username}</strong> {post.caption}
         </div>
       </div>
