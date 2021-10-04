@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
-import { MdChat } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
 import { RiFileUserLine } from "react-icons/ri";
 
@@ -45,17 +44,6 @@ export const Sidebar = () => {
             <span className="link-name">My Posts</span>
           </li>
         </NavLink>
-        <a
-          href="https://racketchat.netlify.app"
-          target="_blank"
-          rel="noreferrer"
-          className="secondary-color"
-        >
-          <li>
-            <MdChat />
-            <span className="link-name">RacketChat</span>
-          </li>
-        </a>
       </ul>
     </div>
   );

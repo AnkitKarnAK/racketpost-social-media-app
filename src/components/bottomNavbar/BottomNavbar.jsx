@@ -1,10 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
-import { MdChat } from "react-icons/md";
+import { RiFileUserLine } from "react-icons/ri";
 import { HiUsers } from "react-icons/hi";
 import "./bottomNavbar.css";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 
 export const BottomNavbar = () => {
+  const user = useSelector(selectUser);
+
   return (
     <footer className="footer-nav">
       <NavLink
@@ -32,19 +36,18 @@ export const BottomNavbar = () => {
           </p>
         </div>
       </NavLink>
-      <a
-        href="https://racketchat.netlify.app"
-        target="_blank"
-        rel="noreferrer"
+      <NavLink
+        to={`/users/${user?.userId}`}
         className="secondary-color"
+        //   activeClassName="primary-color"
       >
         <div className="footer--item">
-          <MdChat />
+          <RiFileUserLine />
           <p>
-            <small>RacketChat</small>
+            <small>My Posts</small>
           </p>
         </div>
-      </a>
+      </NavLink>
     </footer>
   );
 };
